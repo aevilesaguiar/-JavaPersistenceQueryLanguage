@@ -170,6 +170,14 @@ da query, no segundo parâmetro.
 
 ## Paginação
 
+Uma consulta que retorna muitos objetos pode ser um problema para a maioria
+das aplicações. Se existir a necessidade de exibir um conjunto de dados grande,
+é interessante implementar uma paginação de dados e deixar o usuário navegar
+entre as páginas.
+As interfaces Query e TypedQuery suportam paginação através dos métodos
+setFirstResult e setMaxResults, que define a posição do primeiro registro
+(começando de 0) e o número máximo de registros que podem ser retornados,
+respectivamente.
 
 
 
