@@ -4,6 +4,6 @@ import javax.persistence.Persistence;
 
 public class CriarTabela {
     public static void main(String[] args) {
-        Persistence.createEntityManagerFactory("recursos_avancados");
+        Persistence.createEntityManagerFactory("adm_veiculo");
     }
 }

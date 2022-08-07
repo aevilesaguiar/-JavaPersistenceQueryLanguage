@@ -1,11 +1,15 @@
 package com.recursoAvancados.principal;
 
 import com.recursoAvancados.dao.JPAUtil;
-import com.recursoAvancados.model.Categoria;
-import com.recursoAvancados.model.Produto;
+import com.recursoAvancados.model.Acessorio;
+import com.recursoAvancados.model.Proprietario;
+import com.recursoAvancados.model.TipoCombustivel;
+import com.recursoAvancados.model.Veiculo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.math.BigDecimal;
+import java.util.Date;
 
 public class PersistirDados {
     public static void main(String[] args) {
@@ -14,31 +18,59 @@ public class PersistirDados {
         EntityTransaction tx= manager.getTransaction();
         tx.begin();
 
-        Categoria categoria=new Categoria();
-        categoria.setNome("Bebidas");
+        // instancia acessórios
+        Acessorio alarme = new Acessorio();
+        alarme.setDescricao("Alarme");
 
-        Categoria categoria1=new Categoria();
-        categoria.setNome("Eletrodomestico");
+        Acessorio arCondicionado = new Acessorio();
+        arCondicionado.setDescricao("Ar condicionado");
 
-        Produto produto1= new Produto();
-        produto1.setNome("Refrigerante");
-        produto1.setCategoria(categoria);
+        Acessorio bancosDeCouro = new Acessorio();
+        bancosDeCouro.setDescricao("Bancos de couro");
 
-        Produto produto2=new Produto("Água",categoria);
+        Acessorio direcaoHidraulica = new Acessorio();
+        direcaoHidraulica.setDescricao("Direção hidráulica");
 
-        Produto produto3=new Produto("Suco",categoria);
+        // persiste acessórios
+        manager.persist(alarme);
+        manager.persist(arCondicionado);
+        manager.persist(bancosDeCouro);
+        manager.persist(direcaoHidraulica);
 
+        // instancia veículos
+        Veiculo veiculo1 = new Veiculo();
+        veiculo1.setFabricante("VW");
+        veiculo1.setModelo("Gol");
+        veiculo1.setAnoFabricacao(2010);
+        veiculo1.setAnoModelo(2010);
+        veiculo1.setValor(new BigDecimal(17_200));
+        veiculo1.setTipoCombustivel(TipoCombustivel.BICOMBUSTIVEL);
+        veiculo1.setDataCadastro(new Date());
+        veiculo1.getAcessorios().add(alarme);
+        veiculo1.getAcessorios().add(arCondicionado);
 
-        Produto produto4=new Produto("Geladeira",categoria1);
+        Veiculo veiculo2 = new Veiculo();
+        veiculo2.setFabricante("Hyundai");
+        veiculo2.setModelo("i30");
+        veiculo2.setAnoFabricacao(2012);
+        veiculo2.setAnoModelo(2012);
+        veiculo2.setValor(new BigDecimal(53_500));
+        veiculo2.setTipoCombustivel(TipoCombustivel.BICOMBUSTIVEL);
+        veiculo2.setDataCadastro(new Date());
+        veiculo2.getAcessorios().add(alarme);
+        veiculo2.getAcessorios().add(arCondicionado);
+        veiculo2.getAcessorios().add(bancosDeCouro);
+        veiculo2.getAcessorios().add(direcaoHidraulica);
+        veiculo2.getAcessorios().add(direcaoHidraulica);
 
-        manager.persist(categoria1);
-        manager.persist(categoria);
+        // persiste veículos
+        manager.persist(veiculo1);
+        manager.persist(veiculo2);
 
-        manager.persist(produto1);
-        manager.persist(produto2);
-        manager.persist(produto3);
-        manager.persist(produto4);
-
+        Proprietario proprietario = new Proprietario();
+        proprietario.setNome("Sebastião");
+        proprietario.setTelefone("(34) 1234-5678");
+        manager.persist(proprietario);
 
         tx.commit();
         manager.close();

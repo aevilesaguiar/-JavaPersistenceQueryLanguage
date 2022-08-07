@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 public class JPAUtil {
     private static EntityManagerFactory factory;
     static {
-        factory = Persistence.createEntityManagerFactory("recursos_avancados");
+        factory = Persistence.createEntityManagerFactory("adm_veiculo");
     }
     public static EntityManager getEntityManager() {
         return factory.createEntityManager();
